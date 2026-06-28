@@ -47,6 +47,16 @@ Gifte is an ecommerce website for discovering and buying gifts by occasion, reci
 - Checkout flow for customer and order details.
 - Responsive UI for desktop and mobile.
 
+## Screenshots
+
+### Main Storefront
+
+![Gifte main storefront](./screenshots/gifte_main.png)
+
+### Admin Dashboard
+
+![Gifte admin dashboard](./screenshots/gitfte_admin.png)
+
 ## Tech Stack
 
 | Area | Example Stack |
@@ -93,6 +103,8 @@ gifte-demo/
     database-schema.md
     system-flow.md
   screenshots/
+    gifte_main.png
+    gitfte_admin.png
     README.md
 ```
 
