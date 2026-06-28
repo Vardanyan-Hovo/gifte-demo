@@ -55,7 +55,7 @@ Gifte is an ecommerce website for discovering and buying gifts by occasion, reci
 
 ### Admin Dashboard
 
-![Gifte admin dashboard](./screenshots/gitfte_admin.png)
+![Gifte admin dashboard](./screenshots/gifte_admin.png)
 
 ## Tech Stack
 
