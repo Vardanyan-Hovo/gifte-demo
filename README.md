@@ -1,6 +1,8 @@
 # Gifte Demo
 
-Gifte Demo is the public showcase repository for **Gifte**, a gift-focused ecommerce platform. This repository is intentionally limited to documentation, architecture, screenshots, and a walkthrough video. It does not contain the private production source code.
+Gifte Demo is the public showcase repository for **Gifte**, a gift-focused ecommerce platform built with Next.js, TypeScript, Node.js, Docker, Prisma, PostgreSQL, Redis queues, AI integration, and an Nginx proxy layer.
+
+This repository is intentionally limited to documentation, architecture, screenshots, and a walkthrough video. It does not contain the private production source code.
 
 ## Why This Repo Exists
 
@@ -35,7 +37,7 @@ Watch the demo video:
 
 ## Project Overview
 
-Gifte is an ecommerce website for discovering and buying gifts by occasion, recipient, category, and budget. The product is focused on making gift shopping faster and more personal through curated collections, clear product pages, cart management, and checkout flow.
+Gifte is an ecommerce website for discovering and buying gifts by occasion, recipient, category, and budget. The product is focused on making gift shopping faster and more personal through curated collections, clear product pages, cart management, checkout flow, admin product management, background jobs, and AI-assisted ecommerce features.
 
 ## Core Features
 
@@ -45,6 +47,10 @@ Gifte is an ecommerce website for discovering and buying gifts by occasion, reci
 - Product detail pages with image, description, price, and actions.
 - Shopping cart with quantity updates and item removal.
 - Checkout flow for customer and order details.
+- Admin dashboard for managing ecommerce content.
+- AI integration for smarter product and gift discovery workflows.
+- Queue-based background processing with BullMQ and Redis.
+- Dockerized development and deployment setup.
 - Responsive UI for desktop and mobile.
 
 ## Screenshots
@@ -59,31 +65,52 @@ Gifte is an ecommerce website for discovering and buying gifts by occasion, reci
 
 ## Tech Stack
 
-| Area | Example Stack |
+| Area | Stack |
 | --- | --- |
-| Frontend | React, Next.js, or Vite |
-| Styling | Tailwind CSS, CSS Modules, or plain CSS |
-| State Management | React Context, Zustand, Redux Toolkit, or framework state |
-| Backend | Node.js, Express, NestJS, or Next.js API routes |
-| Database | PostgreSQL, MongoDB, Firebase, or Supabase |
-| Payments | Stripe |
-| Deployment | Vercel, Netlify, Render, Railway, or similar |
+| Frontend | Next.js, React, TypeScript |
+| Styling | Tailwind CSS |
+| Backend | Node.js, TypeScript |
+| ORM | Prisma ORM |
+| Database | PostgreSQL |
+| Queues | BullMQ |
+| Queue Broker | Redis |
+| AI | AI integration for ecommerce assistance and automation |
+| Containers | Docker, Docker Compose |
+| Proxy | Nginx reverse proxy |
 
 ## Architecture
 
-Gifte follows a standard ecommerce architecture with a frontend layer, an application/API layer, and a data layer.
+Gifte follows a full-stack ecommerce architecture with a Next.js frontend, a Node.js API layer, Prisma ORM, PostgreSQL, Redis-backed queues, AI service integration, Docker Compose orchestration, and Nginx reverse proxy routing.
 
 ```text
 Customer
    |
    v
-Browser / Frontend UI
+Nginx Reverse Proxy
    |
    v
-Application / API Layer
+Next.js Frontend
+   - Storefront
+   - Product pages
+   - Cart and checkout UI
+   - Admin dashboard
    |
    v
-Database + Media Storage
+Node.js TypeScript API
+   - Product logic
+   - Cart and order logic
+   - Admin logic
+   - AI integration
+   |
+   +--> Prisma ORM
+   |       |
+   |       v
+   |   PostgreSQL
+   |
+   +--> BullMQ Workers
+           |
+           v
+        Redis
 ```
 
 More details are available in:
@@ -104,7 +131,7 @@ gifte-demo/
     system-flow.md
   screenshots/
     gifte_main.png
-    gitfte_admin.png
+    gifte_admin.png
     README.md
 ```
 

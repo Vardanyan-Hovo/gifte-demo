@@ -2,45 +2,57 @@
 
 This document explains the high-level architecture of the Gifte ecommerce platform.
 
+Gifte is built as a Dockerized full-stack system using Next.js, TypeScript, Node.js, Prisma ORM, PostgreSQL, BullMQ, Redis, AI integration, Docker Compose, and Nginx.
+
 ## System Diagram
 
 ```text
 Customer
    |
    v
-Frontend Application
+Nginx Reverse Proxy
+   - Routes public traffic
+   - Separates frontend and API access
+   - Can handle SSL in production
+   |
+   v
+Next.js Frontend
    - Home page
    - Product listing
    - Product details
-   - Cart
-   - Checkout
+   - Cart and checkout
+   - Admin dashboard
    |
    v
-API / Business Logic
+Node.js TypeScript API
    - Product service
    - Cart service
    - Order service
-   - Auth service
-   - Payment service
+   - Admin service
+   - AI integration service
    |
-   v
-Database
-   - Products
-   - Categories
-   - Users
-   - Orders
-   - Order items
+   +--> Prisma ORM
+   |       |
+   |       v
+   |   PostgreSQL
+   |   - Products
+   |   - Categories
+   |   - Users
+   |   - Orders
+   |   - Order items
    |
-   v
-External Services
-   - Payment provider
-   - Email provider
-   - Image/CDN storage
+   +--> BullMQ Workers
+           |
+           v
+        Redis
+        - Background jobs
+        - Queue state
+        - Async processing
 ```
 
 ## Frontend Layer
 
-The frontend provides the customer-facing shopping experience. It is responsible for layout, routing, reusable components, product browsing, cart interaction, and checkout screens.
+The frontend is built with Next.js, React, TypeScript, and Tailwind CSS. It provides the customer-facing shopping experience and the admin dashboard.
 
 Typical frontend modules:
 
@@ -49,10 +61,11 @@ Typical frontend modules:
 - `ProductDetails`: product media, description, price, and add-to-cart action.
 - `Cart`: selected products, quantity updates, and totals.
 - `Checkout`: customer details, shipping, payment, and order review.
+- `Admin`: product, order, and content management views.
 
-## API / Business Logic Layer
+## Backend / API Layer
 
-The API layer connects the UI to the data layer and handles ecommerce rules.
+The backend is built with Node.js and TypeScript. It connects the frontend to the database, queue system, AI services, and ecommerce business logic.
 
 Responsibilities:
 
@@ -60,12 +73,13 @@ Responsibilities:
 - Validate cart items and stock availability.
 - Calculate subtotal, tax, shipping, discounts, and final total.
 - Create customer orders.
-- Integrate with payment and email providers.
+- Integrate with AI-powered ecommerce features.
+- Push background tasks into BullMQ queues.
 - Protect private operations such as admin actions.
 
-## Data Layer
+## Database Layer
 
-The data layer stores product, customer, and order information. In production, product images should be served from a media storage service or CDN.
+Prisma ORM is used to model and access PostgreSQL data. The database stores product, customer, and order information. In production, product images can be served from a media storage service or CDN.
 
 Core data groups:
 
@@ -74,6 +88,31 @@ Core data groups:
 - Customers and addresses.
 - Cart and order records.
 - Payment and shipping statuses.
+
+## Queue Layer
+
+BullMQ and Redis are used for background jobs and async work.
+
+Example queue jobs:
+
+- AI product description generation.
+- Email notifications.
+- Order processing tasks.
+- Admin import/export jobs.
+- Scheduled cleanup or sync tasks.
+
+## Docker And Proxy Layer
+
+Docker and Docker Compose are used to run the application services consistently across local and server environments.
+
+Typical services:
+
+- `web`: Next.js frontend.
+- `api`: Node.js TypeScript backend.
+- `worker`: BullMQ background worker.
+- `postgres`: PostgreSQL database.
+- `redis`: Redis queue broker.
+- `nginx`: Reverse proxy.
 
 ## Security Notes
 

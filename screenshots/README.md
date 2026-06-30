@@ -7,7 +7,7 @@ Recommended files:
 ```text
 screenshots/
   gifte_main.png
-  gitfte_admin.png
+  gifte_admin.png
 ```
 
 Only include images that are safe to publish. Do not include customer data, private admin data, real payment data, or private business information.
