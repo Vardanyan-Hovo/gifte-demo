@@ -1,6 +1,6 @@
 # Gifte Demo
 
-Gifte Demo is the public showcase repository for **Gifte**, a gift-focused ecommerce platform built with Next.js, TypeScript, Node.js, Docker, Prisma, PostgreSQL, Redis queues, AI integration, and an Nginx proxy layer.
+Gifte Demo is the public showcase repository for **Gifte**, a gift-focused ecommerce platform built with Next.js, TypeScript, Node.js, Docker, Prisma, PostgreSQL, Redis, BullMQ, AI integration, and an Nginx proxy layer.
 
 This repository is intentionally limited to documentation, architecture, screenshots, and a walkthrough video. It does not contain the private production source code.
 
